@@ -1,0 +1,3 @@
+p2gcc -c smalloc.c
+p2gcc -c globit.c
+cat globit.o smalloc.o >libx.a

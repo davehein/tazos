@@ -1,0 +1,256 @@
+                   con
+                   	rx_pin = 63
+                   	tx_pin = 62
+                   	clock_freq = 80_000_000
+                   	baud_rate = 115_200
+                   	lr = $1f6
+                   	'init_stack_ptr = 64*1024 - 32*4
+                   	init_stack_ptr = 384*1024
+                   
+                   dat
+00000              	orgh	0
+                   
+                   '*******************************************************************************
+                   '  COG Code
+                   '*******************************************************************************
+00000 000          	org
+                   
+00000 000 fd90017c start	jmp 	#prefix_setup
+00004 001          p2start_address
+00004 001 00000000 	long	_p2start
+00008 002 00000000 	long	0
+0000c 003 00000000 	long	0
+00010 004 00000000 	long	0
+00014 005 04c4b400         long    80000000 ' p2clkfreq
+00018 006 012427f8         long    19146744 ' p2clkconfig
+0001c 007 0001c200   	long	115200   ' baudrate
+00020 008 00000000 r0	long	0
+00024 009 00000000 r1	long	0
+00028 00a 00000000 r2	long	0
+0002c 00b 00000000 r3	long	0
+00030 00c 00000000 r4	long	0
+00034 00d 00000000 r5	long	0
+00038 00e 00000000 r6	long	0
+0003c 00f 00000000 r7	long	0
+00040 010 00000000 r8	long	0
+00044 011 00000000 r9	long	0
+00048 012 00000000 r10	long	0
+0004c 013 00000000 r11	long	0
+00050 014 00000000 r12	long	0
+00054 015 00000000 r13	long	0
+00058 016 00000000 r14	long	0
+0005c 017 00000000 sp	long	0
+                   
+00060 018 00000000 temp	long    0
+00064 019 00000000 temp1	long	0
+00068 01a 00000000 temp2	long	0
+                   
+0006c 01b f6043000 __DIVSI	mov	temp, #0
+00070 01c f6501008 	abs	r0, r0 wc
+00074 01d c6043001  if_c	mov	temp, #1
+00078 01e f6501209 	abs	r1, r1 wc
+0007c 01f c5643001  if_c	xor	temp, #1
+00080 020 fdb0008c 	call	#__UDIVSI
+00084 021 f20c3000 	cmp	temp, #0 wz
+00088 022 56601008  if_nz	neg	r0, r0
+0008c 023 fd64002d 	ret
+                   
+                   '__LONGFILL
+                   '        wrfast  #0, r0
+                   '        rep     #1, r2
+                   '        wflong  r1
+                   '        ret
+                   
+00090 024          __LONGFILL
+00090 024 f6005609         mov     __LONG1, r1
+00094 025 f0445609         shr     __LONG1, #9
+00098 026 ff7fc000         or      __LONG1, ##$ff800000
+0009c 027 f5445600 
+000a0 028 f9b05809         setd    __LONG2, r1
+000a4 029 f1841401         sub     r2, #1
+000a8 02a fd601428         setq    r2
+000ac 02b ff800000 __LONG1 augd    #0
+000b0 02c fc680008 __LONG2 wrlong  #0, r0
+000b4 02d fd64002d         ret
+                   
+000b8 02e          __MEMCPY
+000b8 02e fac01609         rdbyte  r3, r1
+000bc 02f fc401608         wrbyte  r3, r0
+000c0 030 f1041001         add     r0, #1
+000c4 031 f1041201         add     r1, #1
+000c8 032 fb6c15fb         djnz    r2, #__MEMCPY
+000cc 033 fd64002d         ret
+                   
+000d0 034          __has_cordic
+000d0 034 00000000 	long	0
+                   
+                   ' Used CORDIC multiply if available
+000d4 035 f20c6800 __MULSI cmp	__has_cordic, #0 wz
+000d8 036 ad900010  if_z   jmp	#__MULSI0
+000dc 037 fd001009 	qmul	r0, r1
+000e0 038 fd601018 	getqx	r0
+000e4 039 fd601219 	getqy	r1
+000e8 03a fd64002d 	ret
+                   ' else, do shift and add method
+000ec 03b          __MULSI0
+000ec 03b f6043200         mov     temp1,#0
+000f0 03c f6043420         mov     temp2,#32
+000f4 03d f0541001         shr     r0,#1        wc
+000f8 03e          __MULSI1
+000f8 03e c1103209  if_c   add     temp1,r1     wc
+000fc 03f f0943201         rcr     temp1,#1     wc
+00100 040 f0941001         rcr     r0,#1        wc
+00104 041 fb6c35fc         djnz    temp2,#__MULSI1
+00108 042 f6001219         mov     r1, temp1
+0010c 043 fd64002d         ret
+                   
+                   ' Used CORDIC divide if available
+00110 044          __UDIVSI
+00110 044 f20c6800 	cmp	__has_cordic, #0 wz
+00114 045 ad900010  if_z   jmp	#__UDIVSI0
+00118 046 fd101009 	qdiv	r0, r1
+0011c 047 fd601018 	getqx	r0
+00120 048 fd601219 	getqy	r1
+00124 049 fd64002d 	ret
+                   ' else, do shift and subtract method
+00128 04a          __UDIVSI0
+00128 04a f6043420         mov     temp2,#32
+0012c 04b f6043200         mov     temp1,#0
+00130 04c f20c1200         cmp     r1, #0       wz
+00134 04d 5d900008  if_nz  jmp     #__UDIVSI1
+00138 04e f6041000         mov     r0, #0
+0013c 04f fd64002d         ret
+00140 050          __UDIVSI1
+00140 050 f05c1201         shr     r1,#1        wcz
+00144 051 f0843201         rcr     temp1,#1
+00148 052 5b6c35fd  if_nz  djnz    temp2,#__UDIVSI1
+0014c 053          __UDIVSI2
+0014c 053 f2f01019         cmpsub  r0,temp1     wc
+00150 054 f0a41201         rcl     r1,#1
+00154 055 f0443201         shr     temp1,#1
+00158 056 fb6c35fc         djnz    temp2,#__UDIVSI2
+0015c 057 f6003209         mov     temp1, r1
+00160 058 f6001208 	mov	r1, r0
+00164 059 f6001019 	mov	r0, temp1
+00168 05a fd64002d         ret
+                   
+0016c 05b          __CMPSWAPSI
+0016c 05b f6003208 	mov	temp1,r0	'' save value to set
+00170 05c fb00100a 	rdlong	r0,r2		'' fetch original value
+00174 05d f2081009 	cmp	r0,r1 wz	'' compare with desired original value
+00178 05e ac60320a  if_z   wrlong  temp1,r2	'' if match, save new value
+0017c 05f fd64002d 	ret
+                   
+00180 060          prefix_setup
+00180 060 f600ee08         mov     save_r0, r0
+00184 061 f600f009         mov     save_r1, r1
+00188 062 f20ff000         cmp     ptra, #0 wz     ' Check if ptra is zero
+0018c 063 ad900018  if_z   jmp     #prefix_setup1  ' If zero set sp to init_stack_ptr
+00190 064 f6002ff8         mov     sp, ptra
+00194 065 fb000217         rdlong  p2start_address, sp
+00198 066 f1042e04         add     sp, #4
+0019c 067 fb001017         rdlong  r0, sp
+001a0 068 f1042e04         add     sp, #4
+001a4 069 fd90000c         jmp     #prefix_setup2
+001a8 06a          prefix_setup1
+001a8 06a ff000300 	mov	sp, ##init_stack_ptr
+001ac 06b f6042e00 
+001b0 06c fd647c59 	drvh    #tx_pin
+001b4 06d          prefix_setup2
+001b4 06d f6041201 	mov	r1, #1
+001b8 06e fd001209         qmul    r1, r1
+001bc 06f fd606818         getqx   __has_cordic
+001c0 070 f6001077         mov     r0, save_r0
+001c4 071 f6001278         mov     r1, save_r1
+001c8 072 fb23ec01 	calld	lr, p2start_address
+001cc 073 fd601201 	cogid	r1
+001d0 074 f6041400         mov     r2, #0
+001d4 075 fc60140a         wrlong  r2, r2
+001d8 076 fd601203 	cogstop	r1
+001dc 077 00000000 save_r0 long    0
+001e0 078 00000000 save_r1 long    0
+                   
+                   '*******************************************************************************
+                   '  Program HUB Code
+                   '*******************************************************************************
+00400              	orgh	$400
+                   
+                   
+                   ' void main(void)
+00400              _main   
+00400     f1842e04         sub     sp, #4
+00404     fc63ec17         wrlong  lr, sp
+                   
+                   ' {
+                   '     int i;
+                   ' 
+                   '     for (i = 1; i <= 10; i++)
+                   
+00408     f1842e04         sub     sp, #4
+0040c     f6041001         mov     r0, #1
+00410     f6041200         mov     r1, #0
+00414     f1001217         add     r1, sp
+00418     fc601009         wrlong  r0, r1
+0041c              label0001
+0041c     f6041000         mov     r0, #0
+00420     f1001017         add     r0, sp
+00424     fb001008         rdlong  r0, r0
+00428     f604120a         mov     r1, #10
+0042c     f2501208         cmps    r1, r0 wc
+00430     36041001  if_nc  mov     r0, #1
+00434     c6041000  if_c   mov     r0, #0
+00438     f20c1000         cmp     r0, #0  wz
+0043c     5d90001c  if_nz  jmp     #label0003
+00440     fd900064         jmp     #label0004
+00444              label0002
+00444     f6041400         mov     r2, #0
+00448     f1001417         add     r2, sp
+0044c     fb00100a         rdlong  r0, r2
+00450     f1041001         add     r0, #1
+00454     fc60100a         wrlong  r0, r2
+                   
+                   '     {
+00458     fd9fffc0         jmp     #label0001
+0045c              label0003
+                   
+                   '         msleep(500);
+0045c     f60411f4         mov     r0, #500
+00460     fe100000         calld   lr, #_msleep
+                   
+                   '         printf("Hello World - %d\n", i);
+00464     fb27ec05         calld   lr, #label0006
+00468     6c6c6548         byte    "Hello World - %d", 10, 0
+0047a                      alignl
+0047c              label0006
+0047c     f60011f6         mov     r0, lr
+00480     f6041200         mov     r1, #0
+00484     f1001217         add     r1, sp
+00488     fb001209         rdlong  r1, r1
+0048c     f1842e04         sub     sp, #4
+00490     fc601217         wrlong  r1, sp
+00494     f1842e04         sub     sp, #4
+00498     fc601017         wrlong  r0, sp
+0049c     fe100000         calld   lr, #_printf
+004a0     f1042e08         add     sp, #8
+                   
+                   '     }
+                   '     printf("Goodbye\n");
+004a4     fd9fff9c         jmp     #label0002
+004a8              label0004
+004a8     fb27ec03         calld   lr, #label0008
+004ac     646f6f47         byte    "Goodbye", 10, 0
+004b5                      alignl
+004b8              label0008
+004b8     f60011f6         mov     r0, lr
+004bc     f1842e04         sub     sp, #4
+004c0     fc601017         wrlong  r0, sp
+004c4     fe100000         calld   lr, #_printf
+004c8     f1042e04         add     sp, #4
+                   
+                   ' }
+004cc     f1042e04         add     sp, #4
+004d0     fb03ec17         rdlong  lr, sp
+004d4     f1042e04         add     sp, #4
+004d8     fd63ec2c         jmp     lr
+                   
+                   ' EOF

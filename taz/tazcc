@@ -1,0 +1,4 @@
+#shell
+taz -g $1.c
+p2asm -o -hub $1.s
+p2link -L /lib prefix.o p2start.o $1.o libsmall.a -o $1

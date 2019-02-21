@@ -1,0 +1,22 @@
+CP(1)                            User Commands                            CP(1)
+
+NAME
+        cp - copy files
+
+SYNOPSIS
+        cp [FILE1] [FILE2]
+
+DESCRIPTION
+        Copy FILE1 to FILE2
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2011, 2012 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                     March 2012                              CP(1)

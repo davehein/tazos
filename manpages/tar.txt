@@ -1,0 +1,24 @@
+TAR(1)                           User Commands                           TAR(1)
+
+NAME
+        tar - process a file archive
+
+SYNOPSIS
+        tar [OPTION] [FILE] [FILELIST]
+
+DESCRIPTION
+        Create a tar file named FILE if OPTION is "-cf".  FILELIST is a list of
+        files to be added to the tar file.  If OPTION is "-xf", files are
+        extracted from the tar file, FILE.  FILELIST is not used in this case.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2011, 2012 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                     March 2012                             TAR(1)

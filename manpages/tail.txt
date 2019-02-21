@@ -1,0 +1,23 @@
+TAIL(1)                          User Commands                          TAIL(1)
+
+NAME
+        tail - display a file tail
+
+SYNOPSIS
+        tail [OPTIONS] [FILE]
+
+DESCRIPTION
+        Display the last 10 lines of a file to the standard output if OPTION is
+        not specified.  An OPTION of "-n" will display the last n lines.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2011, 2012 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAXOS utility                     March 2012                            TAIL(1)

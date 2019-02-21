@@ -1,0 +1,24 @@
+WC(1)                            User Commands                            WC(1)
+
+NAME
+        wc - print counts of newlines, words and bytes
+
+SYNOPSIS
+        wc [FILE]...
+
+DESCRIPTION
+        Print the counts of newlines, words and bytes for each file that is
+        specified.  If more than one file is specified also print the totals
+        for all the files.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2013 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                    August 2013                              WC(1)

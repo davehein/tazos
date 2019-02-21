@@ -1,0 +1,29 @@
+LS(1)                          User Commands                            LS(1)
+
+NAME
+        ls - list files
+
+SYNOPSIS
+        ls [OPTIONS] [DIRECTORIES]
+
+DESCRIPTION
+        List the files in the DIRECTORIES to the standard output.  If no
+        DIRECTORIES are specified, the current directory is listed.  If OPTIONS
+        is not specified, only the file names will be listed.  OPTIONS can be
+        one or more of the following:
+
+            -l - Long list that shows the attributes and lengths
+            -a - Show all files including hidden files that start with . and _
+            -e - Show the executable type
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2011, 2012 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                     March 2012                              LS(1)

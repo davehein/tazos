@@ -1,0 +1,78 @@
+BAS(1)                           User Commands                           BAS(1)
+
+NAME
+        bas - basic interpreter
+
+SYNOPSIS
+        bas [FILE]
+
+DESCRIPTION
+        Start a basic interpreter, and load the basic source file FILE if
+        specified.  bas implements the following commands:
+
+        run    - Run the program
+        list   - List the program
+        new    - Clear the program from memory
+        bye    - Exit back to the OS
+        save   - Save the program to a file
+        old    - Load a program from a file
+        help   - Print the commands
+        dump   - Dump the variable addresses
+        end    - Stop the program
+        stop   - Stop the program
+        rem    - Remark.  Ignore the rest of the line
+        return - Return from a subroutine
+        input  - Read input from the console
+        if     - Check condition and execute the remaining line if non-zero
+        print  - Print strings and variables
+        goto   - Go to the specified line
+        gosub  - Go to the specified line, and save the return address
+        for    - Initialize a variable and set the end value
+        next   - Increment a variable and loop if not greater than end value
+        dim    - Specify and array
+        let    - Optional keyword indicating variable assignment
+
+
+        The following operators are implemented:
+
+        =  - Used for variable assignment or testing equality
+        <> - Not equal
+        <  - Less than
+        >  - Greater than
+        <= - Less than or equal
+        >= - Greater than or equal
+        +  - Addition
+        -  - Subtraction
+        *  - Multiplication
+        /  - Division
+
+        Most commands can be executed immediately, except for gosub, return,
+        for and next.  These commands can only be executed from a program.  A
+        program line is entered by prefixing it with a number between 1 and
+        999.  Multiple statements can be entered on one line by seperating them
+        with a ":" character.
+
+        A print command will normally issue a newline.  This can be prevented
+        by ending the print statement with a "'" or ";" character.
+
+        Variables must consist of a single letter between "a" and "z".  Upper
+        case variable names will be treated as lower case.
+
+        The list command performs like "more", where it will print enough lines
+        to fill the screen and then wait before printing more lines.  Pushing
+        "enter" will cause one more line to print.  Pushing "q" will terminate
+        the list command.  Pushing any other key will cause another screen full
+        of lines to print.
+
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2014 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                      July 2014                             BAS(1)

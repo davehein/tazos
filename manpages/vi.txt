@@ -1,0 +1,357 @@
+VI(1)                            User Commands                            VI(1)
+
+NAME
+       vi - visual text editor
+
+SYNOPSIS
+       vi [file]
+
+DESCRIPTION
+       vi is a visual-oriented text editor.  It is used to create, display,
+       modify and otherwise manipulate text files.  This version of vi
+       implements most of the commands in the standard vi utility.  It does
+       not allow wildcard or escape characters in the search or replacement
+       strings, and it cannot execute shell commands.  It also does not
+       implement the undo command.
+
+       vi can also run a in line-oriented mode, which is know as the ex mode.
+       The ex mode is entered by typing the 'Q' command.  The ex mode can be
+       terminated, and visual-oriented editing can be resumed by typing the
+       'V' command.  The 'V' command has been extended to include an optional
+       parameter that defines the number of lines used in the visual mode.
+       The ex mode can also be invoked for one command by typing a ':', '/",
+       or '?' character.
+
+       If invoked with a file argument, a copy of the file is read into the
+       editor's buffer.  Changes are made to this copy and not directly to
+       file itself.  Changes must be written back to the file before exiting
+       vi.
+
+       In both the vi and ex modes, editing is done in two distinct modes:
+       command and input.  When first invoked, vi is in command mode.  In this
+       mode commands are used to move the cursor, scroll up or down in the
+       file, or delete or copy text.  In the input mode, lines of text can be
+       inserted before or after the current line, or even within the line
+       itself.
+
+       The vi commands are summarized below:
+
+        Q   - Quit from vi mode, and go into ex mode.
+        Y   - Yank "count" lines to the copy buffer.  Default is 1 line.
+        p   - Push the lines in the copy buffer to the edit buffer.
+        :   - Exit to the ex mode for one command.
+        /   - Search forward for the follwing text string.
+        ?   - Search backward for the follwing text string.
+        n   - Move to the next line matching the last search string.
+        N   - Move to the previous line matching the last search string.
+        CR  - Move down one line.  Same as "j".
+        j   - Move down one line.
+        k   - Move up one line.
+        h   - Move left one space.
+        l   - Move right one space.
+        ^F  - Move forward one screen.
+        ^B  - Move back one screen.
+        ^D  - Move down one-half screen.
+        ^U  - Move up one-half screen.
+        G   - Go to the line given by "count".  The default is the last line.
+        J   - Join "count" lines to current line.  The default is one line.
+        dd  - Delete "count" lines.  The default is one line.
+        x   - Delete "count" characters.  The default is one.
+        r   - Replace a character.
+        O   - Open up a new line above the current line, and go into insert
+              mode.
+        A   - Append characters after the end of the current line.
+        I   - Insert characters at the beginning of the current line.
+        i   - Insert characters before the current column.
+        a   - Append characters after the current column.
+        $   - Move to the last character in the line.
+        0   - Move to the first character in the line.
+        1-9 - Set the count to a decimal number, including zero characters.
+        ESC - Escape from the insert mode, or ignore previous command characters.
+
+       In the ex mode, commands are executed on single lines, or a range of
+       lines.  All ex commands are entered as a complete line of text,
+       terminated by the enter key.  This version of ex only allows one
+       command per line.
+
+       As with the visual mode, editing  is done in either the command or input
+       mode.  When invoked, ex is in command mode.  A typical ex command might
+       look like:
+
+              ,s/old/new/g
+
+       which replaces all occurrences of the string old with new.
+
+       When an input command, such as 'a' (append), 'i' (insert) or 'c'
+       (change), is given, ex enters input mode.  In this mode, no commands are
+       available; instead, the standard input is written directly to the editor
+       buffer.  Lines consist of text up to and including a newline character.
+       The input mode is terminated by entering a single period  (.) on a line.
+
+       All ex commands operate on whole lines or ranges of lines; e.g., the 'd'
+       command deletes lines; the 'm' command moves lines, and so on.  It is
+       possible to modify only a portion of a line by means of replacement, as
+       in the example above.  However even here, the 's' command is applied to
+       whole lines at a time.
+
+       In general, ex commands consist of zero or more line addresses, followed
+       by a single character command and possibly additional parameters; i.e.,
+       commands have the structure:
+
+              [address [,address]]command[parameters]
+
+       The address(es) indicate the line or range of lines to be affected by
+       the command.  If fewer addresses are given than the command accepts,
+       then default addresses are supplied.
+
+
+   LINE ADDRESSING
+       An address represents the number of a line in the buffer.  ex maintains
+       a current address which is typically supplied to commands as the default
+       address when none is specified.  When a  file  is first read,  the
+       current address is set to the last line of the file.  In general, the
+       current address is set to the last line affected by a command.
+
+       A line address is constructed from one of the bases in the list below,
+       optionally followed by a numeric offset.  The offset may include any
+       combination of digits, operators (i.e.  + and -).  Addresses are read
+       from left to right, and their values are computed relative to the
+       current address.
+
+       One exception to the rule that addresses represent line numbers is the
+       address 0 (zero).  This means "before the first line," and is legal
+       wherever it makes sense.
+
+       An address range is two addresses separated either by a comma or
+       semicolon. The value of the first address in a range cannot exceed the
+       value of the second.  If only one address is given in a range, then the
+       second address is set to the given address.  If only one address is
+       expected, then the last address is used.
+
+       Each address in a comma-delimited range is interpreted relative to the
+       current address.  In a semicolon-delimited range, the first address is
+       used to set the  current  address,  and  the  second address is
+       interpreted relative to the first.
+
+
+       The following address symbols are recognized.
+
+
+       .       The current line (address) in the buffer.
+
+
+       $       The last line in the buffer.
+
+
+       n       The nth, line in the buffer where n is a number in the range
+               [0,$].
+
+       n,m     Lines n through m, where n is less than or equal to m.
+
+       -       The previous line.  This is equivalent to -1.
+
+
+       -n      The nth previous line, where n is a non-negative number.
+
+
+       +       The next line.  This is equivalent to +1.
+
+
+       +n      The nth next line, where n is a non-negative number.
+
+
+       %       The first through last lines in the buffer.  This is equivalent
+               to the address range 1,$.
+
+
+       ;       The current through last lines in the buffer.  This is
+               equivalent to the address range .,$.
+
+
+       /re/    The next line containing the regular expression re.  The search
+               wraps to the beginning of the buffer and continues down to the
+               current line, if necessary.  // repeats the last search.
+
+
+       ?re?    The previous line containing the regular expression re.  The
+               search wraps to the end of the buffer and continues up to the
+               current line, if necessary.  ?? repeats the last search.
+
+
+
+   REGULAR EXPRESSIONS
+       Regular expressions are patterns used in selecting text.  For example,
+       the ex command
+
+              g/string/
+
+       prints all lines containing string.  Regular expressions are also used
+       by the 's' command for selecting old text to be replaced with new.  This
+       version of ex does not use any wildcard or escape characters.
+
+   COMMANDS
+       All ex commands are single characters, though some require additional
+       parameters.  ex commands must fit in a single line, and cannot be
+       continued to another line.
+
+       In general, only one command is allowed per line.  The only exceptions
+       are the 'g' and 'v' commands, which can be followed by an 's', 'p', 'l'
+       or 'n' command.
+
+       ex recognizes the following commands.  The commands are shown together
+       with the default address or address range supplied if none is specified
+       (in parenthesis).
+
+       (.)a    Appends text to the buffer after the addressed line, which may
+               be the address 0 (zero).  Text is entered in input mode.  The
+               current address is set to last line entered.
+
+       (.,.)c  Changes  lines  in  the buffer.  The addressed lines are deleted
+               from the buffer, and text is appended in their place.  Text is
+               entered in input mode.  The current address is set to last line
+               entered.
+
+       (.,.)d  Deletes the addressed lines from the buffer.  If there is a line
+               after the deleted range, then the current address is set to this
+               line. Otherwise the current address is set to  the  line before
+               the deleted range.
+
+       e file  Edits  file,  and sets the default filename.  If file is not
+               specified, then the  default filename is used.  Any lines in the
+               buffer are deleted before the new file is read.  The current
+               address is set to the last line read.
+
+       e! file Edits file unconditionally.  This is similar to the e command,
+               except that unwritten changes are discarded without warning.
+               The current address is set to the last line read.
+
+       (1,$)g/re/command
+               Applies  command  to each of the addressed lines matching a
+               regular expression re.  The current address is set to the line
+               currently matched before command is executed.  At the end of the
+               'g' command, the current address is set to the last line
+               affected by command. The allowable commands are 's', 'p', 'l'
+               and 'n'.  The 'p' command is used if command is not specified.
+
+       (.)i    Inserts text in the buffer before the current line.  Text is
+               entered in input mode.  The current address is set to the last
+               line entered.
+
+       (.,.+1)j
+               Joins the addressed lines.  The addressed lines are deleted from
+               the buffer and replaced by a single line containing their joined
+               text.  The current address is set to the resultant line.
+
+
+       (.,.)l  Prints the addressed lines unambiguously.  The current address
+               is set to the last line printed.
+
+       (.,.)m(.)
+               Moves  lines  in the buffer.  The addressed lines are moved to
+               after the right-hand destination address, which may be the
+               address 0 (zero).  The current address is set to the new address
+               of the last line moved.
+
+       (.,.)#  Prints the addressed lines along with their line numbers.  The
+               current address is set to the last line printed.
+
+       (.,.)p  Prints the addressed lines.    The current address is set to the
+               last line printed.
+
+       q       Quits the editor.
+
+       q!      Quits the editor unconditionally.  This is similar to the q
+               command, except that unwritten changes are discarded without
+               warning.
+
+       ($)r file
+               Reads file to after the addressed line.  If file is not
+               specified, then the default filename is used.  If there was no
+               default filename prior to the command, then the default filename
+               is set to file.  Otherwise, the default filename is unchanged.
+               The current address is set to the last line read.
+
+       (.,.)s/re/replacement/
+       (.,.)s/re/replacement/g
+               Replaces  text in the addressed lines matching a regular
+               expression re with replacement.  By default, only the first
+               match in each line is replaced.  If the 'g' (global) suffix is
+               given, then every match to be replaced.  It is an error if no
+               substitutions are performed on any of  the addressed lines.  The
+               current address is set to the last line affected.
+
+       (.,.)t(.)
+               Copies (i.e., transfers) the addressed lines to after the right-
+               hand destination address, which may be the address 0 (zero).
+               The current address is set to the last line copied.
+
+       Tn      Change to the terminal mode specified by "n".  A value of 0 is
+               used if "n" is not specified.  Values of 0, 1, 2 and 3 specify
+               TTY, PST, ANSI and VGA terminal modes respectively.
+
+       (1,$)v/re/command-list
+               Applies command-list to each of the addressed lines not matching
+               a regular expression re.  This is similar to the 'g' command.
+
+
+       Vn      Enter the visualization mode, and set the number of display lines
+               to 'n' if specified.
+
+       (1,$)w file
+               Writes  the  addressed  lines to file.  Any previous contents of
+               file is lost without warning.  If there is no default filename,
+               then the default filename is set to file, otherwise it is
+               unchanged.  If no filename is specified, then the default
+               filename is used.  The current address is unchanged.
+
+       (.)P    Copies (puts) the contents of the cut buffer to after the
+               addressed line.  The current address is set to the last line
+               copied.
+
+       (1,$)x file
+               Writes  the  addressed  lines to file and exits.  Any previous
+               contents of file is lost without warning.  If no filename is
+               specified, then the default filename is used.
+
+
+       (.,.)y  Copies (yanks) the addressed lines to the cut buffer.  The cut
+               buffer is overwritten by subsequent 'y', 'j', 'd', or 'c'
+               commands.  The current address is unchanged.
+
+       (.+1)zn Scrolls n lines at a time starting at addressed line.  If n is
+               not specified, then the current window size is used.  The
+               current address is set to the last line printed.
+
+       ($)=    Prints the line number of the addressed line.
+
+       (.+1)newline
+               Prints the addressed line, and sets the current address to that
+               line.
+
+
+OPTIONS
+       file    Specifies the name of a file to read.  The default filename is
+               set to the specified file.
+
+SEE ALSO
+       B. W. Kernighan and P. J. Plauger, Software Tools in Pascal , Addison-
+       Wesley, 1981.
+
+LIMITATIONS
+       vi is limited to 200 characters per line.  If an input line is greater
+       than 200 characters it will be broken up into multiple lines.  The input
+       file must terminate lines with a newline (LF) character.  Files will be
+       written using the UNIX LF line termination.  The size of the file is
+       limited by the amount of buffer memory available to vi.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2011-2014 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                     March 2012                              VI(1)

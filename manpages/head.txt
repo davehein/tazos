@@ -1,0 +1,26 @@
+HEAD(1)                          User Commands                          HEAD(1)
+
+NAME
+        head - print the beginning lines of a file
+
+SYNOPSIS
+        head [OPTION] [FILE]
+
+DESCRIPTION
+        The first 10 lines of FILE are printed to the standard output if OPTION
+        is not present.  A different number of lines can be specified with a
+        "-n" OPTION, where n is the postivie number.  The standard input is used
+        if FILE is not specified.  In the case of the standard input, head will
+        terminate after reading "n" lines.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2011, 2012 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                     March 2012                            HEAD(1)

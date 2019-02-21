@@ -1,0 +1,26 @@
+TAZCC(1)                          User Commands                         TAZCC(1)
+
+NAME
+        tazcc - taz compiler collection
+
+SYNOPSIS
+        tazcc FILE
+
+DESCRIPTION
+        tazcc is a script file that compiles a C program into a Taz OS
+        executable by running the taz, p2asm and p2link utilities.  At each
+        step, tazcc will check to see if the step ran correctly before starting
+        the next one.  In the final step, tazcc will link the compiled program
+        with the libx.a library contained in the lib directory.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2011, 2012, 2013 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZCC                           February 2019                          TAZCC(1)

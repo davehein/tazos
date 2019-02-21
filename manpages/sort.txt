@@ -1,0 +1,32 @@
+SORT(1)                          User Commands                          SORT(1)
+
+NAME
+        sort - sort one or more files
+
+SYNOPSIS
+        sort [-r] [-h] [FILE]...
+
+DESCRIPTION
+        This utilities sort one or more file in ASCII order.  If the -r option
+        is specified the files will be sorted in reverse order.  If the -h
+        option is specifed a usage message will be printed.
+
+        If no files are specified the sort utility will read from the standard
+        input.  Entry into standard input is terminated by a control D.  The
+        sort utility does not accept wildcard characters.
+
+LIMITATIONS
+        The total number of lines is limited to 1000, and the total number of
+        characters is limited to 10000.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2014 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                     June 2014                             SORT(1)

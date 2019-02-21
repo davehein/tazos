@@ -1,0 +1,23 @@
+TOUCH(1)                         User Commands                         TOUCH(1)
+
+NAME
+        touch - update the timestamp for one or more files
+
+SYNOPSIS
+        touch FILE...
+
+DESCRIPTION
+        touch updates the modified timestamp for all the files in the file
+        list.  The file list can include the wildcard characters * and ?.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2013 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                    November 2013                         TOUCH(1)

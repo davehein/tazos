@@ -1,0 +1,44 @@
+TED(1)                           User Commands                           TED(1)
+
+NAME
+        ted - tiny text editor
+
+SYNOPSIS
+        ted [FILE]
+
+DESCRIPTION
+        Edits the file named FILE.  ted is a subset of the ed text editor  It
+        uses single letter commands that may be prefixed by a line number or a
+        range of line numbers.  The "." character represents the current line,
+        and the "$" character is the last line number.  A range is specifed by
+        two line numbers seperated by a comma, such as "1,10" or ".,$".
+
+        The commands are:
+            q - quit
+            w - write edit buffer to FILE
+            d - delete the current line
+            i - insert lines after the current line
+            a - append lines before the current line
+            p - print lines
+            n - print lines with line number
+            j - join the current line with the next line
+            # - move to line #
+            . - current line
+            $ - move to last line
+            - - move down one line
+            + - move up one line
+            h - print help information
+
+
+AUTHOR
+        Dave Hein
+
+
+COPYRIGHT
+        Copyright (c) 2011, 2012 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                     March 2012                             TED(1)

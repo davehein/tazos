@@ -1,0 +1,22 @@
+ECHO(1)                          User Commands                          ECHO(1)
+
+NAME
+        echo - display a line of text
+
+SYNOPSIS
+        echo [STRING]...
+
+DESCRIPTION
+        Echo the STRING(s) to standard output.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2011, 2012 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                     March 2012                            ECHO(1)

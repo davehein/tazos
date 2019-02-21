@@ -1,0 +1,27 @@
+SED(1)                           User Commands                           SED(1)
+
+NAME
+        sed - stream editor
+
+SYNOPSIS
+        sed s/expr/replace/[g] [FILE]...
+
+DESCRIPTION
+        Replaces the string "expr" with the string "replace".  If "g" is
+        specified all occurances of "expr" will be replaced on each line.
+        Otherwise, only the first occurance will be replaced.
+
+        One or more input files may be specified on the command line.  If no
+        files are specified the input will come from the standard input.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2011, 2012 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                      July 2014                             SED(1)

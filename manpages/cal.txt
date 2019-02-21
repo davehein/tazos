@@ -1,0 +1,28 @@
+CAL(1)                           User Commands                           CAL(1)
+
+NAME
+        cal - print a calendar
+
+SYNOPSIS
+        cal [[month] year]
+
+DESCRIPTION
+        This utiliy will print a calendar for the current month if no command
+        line parameters are specified.  If only the year is specified a
+        calendar for all twelve months of the year will be printed.  If both a
+        month and a year are specified the calendar for that month will be
+        printed.
+        
+
+AUTHOR
+        Dave Hein
+
+
+COPYRIGHT
+        Copyright (c) 2014-2019 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                    February 2019                           CAL(1)

@@ -1,0 +1,53 @@
+LERNER(1)                        User Commands                        LERNER(1)
+
+NAME
+        lerner - conversational program that learns
+
+SYNOPSIS
+        lerner
+
+DESCRIPTION
+        Lerner is a stand-alone conversational program that can learn by
+        building a vocabulary.  It supports a simple grammatical syntax
+        containing a subject, verb and predicate.  The predicate can contain
+        an optional adjective.  The syntax is as follows:
+
+        [article] subject verb [article] [adjective] predicate
+
+        Each field must consist of a single word.  The articles, "a", "an" and
+        "the" are optional.  Statements can be made questions by adding a "?"
+        at the end.  Questions can also start with the words "who", "what",
+        "does", "do", "is" and "are".  The question mark is optional when
+        starting a question with these words.
+
+        Words must be spelled with the same capitalization as they were
+        defined.  One exception is at the beginning of a sentence where the
+        first letter can be capitalized even if the word was defined in
+        lower-case.
+
+        Lerner supports the following commands:
+
+            vocab [word] - Print the words I know
+            dump         - Print the words as hex codes
+            forget       - Remove a word from memory
+            save [file]  - Save the words to a file (default lerner.voc)
+            load [file]  - Load the words from a file (default lerner.voc)
+            reset        - Reset the word table
+            basic        - Reset the word table to a basic list
+            history      - Print the short term memory
+            goodbye      - Exit the program
+            bye          - Exit the program (same as goodbye)
+            help         - Print this list of commands
+
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2011-2014 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS Program                     March 2012                          LERNER(1)

@@ -1,0 +1,38 @@
+TAZ(1)                           User Commands                           TAZ(1)
+
+NAME
+        taz - C compiler
+
+SYNOPSIS
+        taz FILE
+
+DESCRIPTION
+        taz compiles a C program containing a subset of the C language.  The
+        compiler generates Spasm code, which can be assembled with the spasm
+        utility.  taz allows the char, short and int types.  char is unsigned
+        and short and int are signed.  These types can be modified with the
+        signed and unsigned keywords.
+
+        Pointers and single dimension arrays may be declared.  Global
+        variables and arrays may be initialized in the declaration.  Local
+        variables may not be initialized in the declaration, and an explicit
+        assignment must be used to initialize them.
+
+        taz does not support any of the pre-processor directives, such as
+        #include, #define and #ifdef.  In addition, taz does not support the
+        following keywords:
+
+        enum, extern, volatile, constant, struct, typedef, switch and case.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2015-2019 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZ                             February 2019                            TAZ(1)
+

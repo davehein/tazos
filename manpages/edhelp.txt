@@ -1,0 +1,44 @@
+ED Commands
+
+Line Addresses
+n                - nth line
+.                - current line
+$                - last line
+-                - previous line
+-n               - nth previous line
++                - next line
++n               - nth next line
+n,m              - lines n through m
+,                - first through last lines
+;                - current through last lines
+/str/            - next line containing str
+?str?            - previous line containing str
+
+Editing Commands
+(.)a             - append text after the addressed line
+(.,.)c           - replace the addressed lines with text
+(.,.)d           - delete the addressed lines
+e file           - discard all lines and edit the specified file
+E file           - unconditionally discard all lines and edit specified file
+f file           - set the current file name and print the name
+(1,$)g/str/cmd   - execute a command on lines containing str
+h                - print help information
+(.)i             - insert text before the addressed line
+(.,.+1)j         - join the addressed lines
+(.,.)l           - print the addressed lines unambiguously
+(.,.)m(.)        - move the addressed lines to after the right-hand address
+(.,.)n           - print the addresses lines with line numbers
+(.,.)p           - print the addresses lines
+P                - toggle the prompt mode
+q                - quit
+($)r file        - read the specified file after the addressed line
+(.,.)s/st1/st2/g - substitute occurances of st1 with st2
+(.,.)t(.)        - copy the addressed lines to after the right-hand address
+(1,$)v/str/cmd   - execute a command on lines not containing str
+Vn               - set visualization mode to n lines or toggle on/off if no n
+(1,$)w file      - write the addressed lines to the specified file
+(.)x             - insert lines from the cut buffer after the addressed line
+(.,.)y           - yank the addressed lines to the cut buffer
+(.+1)zn          - scroll and print n lines from the addressed line
+($)=             - print the line number of the addressed line
+(.+1)            - print the addressed line

@@ -1,0 +1,22 @@
+MV(1)                            User Commands                            MV(1)
+
+NAME
+        mv - move a file
+
+SYNOPSIS
+        mv [OLDNAME] [NEWNAME]
+
+DESCRIPTION
+        Moves a file from OLDNAME to NEWNAME.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2011, 2012 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                     March 2012                              MV(1)

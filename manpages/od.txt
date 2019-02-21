@@ -1,0 +1,26 @@
+OD(1)                            User Commands                            OD(1)
+
+NAME
+        od - octal dump
+
+SYNOPSIS
+        od [OPTION] [FILE]
+
+DESCRIPTION
+        Dumps the contents of FILE to the standard output in octal if OPTION is
+        not specified, or if OPTION is "-o".  If OPTION is "-x" the file will
+        be dumped in hexadecimal, and if OPTION is "-a" it will be dumped in
+        ASCII.  In ASCII mode, any non-printable characters will be displayed
+        as escacped characters.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2011, 2012 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS utility                     March 2012                              OD(1)

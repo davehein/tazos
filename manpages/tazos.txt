@@ -1,0 +1,36 @@
+TAZOS(1)                            Taz OS                             TAZOS(1)
+
+NAME
+        tazos - taz operating system
+
+DESCRIPTION
+        Tazos is a linux-like operating system that runs on a Parallax P2
+        Propeller processor interfaced to an SD card.  It consists of a boot
+        program, shell and many applications.
+
+        The boot program resides in the Propeller boot EEPROM.  When run for
+        the first time, the boot program prompts the user for the I/O pins used
+        to interface to the SD card.  The boot program then starts up the shell
+        program.
+
+        Spinix maintains an area at the top of memory that contains mail boxes
+        that are used to talk to the console and SD driver.
+
+        The shell provides a user interface that accepts commands from the
+        user, and executes programs that are stored on the SD card.
+
+SEE ALSO
+        For more information see the man pages on the boot program and the
+        shell.
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2019 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAZOS OS                           February 2019                       TAZOS(1)

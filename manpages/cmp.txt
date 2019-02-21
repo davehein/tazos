@@ -1,0 +1,25 @@
+CMP(1)                           User Commands                           CMP(1)
+
+NAME
+        cmp - compare two files
+
+SYNOPSIS
+        cmp FILE1 FILE2
+
+DESCRIPTION
+        Compare FILE1 with FILE2.  If there is a difference between the two
+        files the byte number and line number are printed.  If there is no
+        difference the program will return without printing anything.
+        
+
+AUTHOR
+        Dave Hein
+
+COPYRIGHT
+        Copyright (c) 2014 Dave Hein
+        MIT License (See license.txt in the root directory)
+        This is free software: you are free to change and redistribute it.
+        There is no warranty, to the extent permitted by law.
+
+
+TAXOS utility                   September 2014                           CMP(1)

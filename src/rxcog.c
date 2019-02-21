@@ -5,14 +5,15 @@
 #include <stdio.h>
 #include <propeller.h>
 
-#define BUFFER_SIZE 128
+#define BUFFER_SIZE 256
 #define BUFFER_MASK (BUFFER_SIZE - 1)
 
 volatile int p2bitcycles;
-static stack[70];
+static int stack[100];
 static char buffer[BUFFER_SIZE];
 static volatile int rdindex = 0;
 static volatile int wrindex = 0;
+static int cognum;
 
 // This function receives characters
 __attribute__((noinline)) int __getch1(int cycles)
@@ -70,7 +71,12 @@ int getch(void)
 // This function starts the serial rx cog
 void start_rx_cog(void)
 {
-    cogstart(rx_cog, 0, stack, sizeof(stack));
+    cognum = cogstart(rx_cog, 0, stack, sizeof(stack));
+}
+
+void stop_rx_cog(void)
+{
+    cogstop(cognum);
 }
 
 /*

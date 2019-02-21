@@ -117,7 +117,7 @@ int main(int argc, char **argv)
         fwrite(buf, 1, num, outfile);
       fclose(infile);
       fclose(outfile);
-      //chmod(target, attrib1);
+      chmod(target, attrib1);
     }
   }
 

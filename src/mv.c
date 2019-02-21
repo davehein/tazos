@@ -118,7 +118,7 @@ int main(int argc, char **argv)
         fwrite(buf, 1, num, outfile);
       fclose(infile);
       fclose(outfile);
-#if 0
+#if 1
       chmod(target, attrib1);
       if (!(attrib1 & S_IWRITE))
       {

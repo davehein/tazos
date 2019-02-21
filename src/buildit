@@ -10,15 +10,16 @@
 ./compile ed
 ./compile grep
 ./compile head
-echo lerner
-p2gcc lerner.c rxcog.c -o ../bin/lerner
+./compile1 lerner
 ./compile ls
 ./compile man
 ./compile more
 ./compile mv
 ./compile od
 ./compile pwd
+./compile1 rb
 ./compile rm
+./compile1 sb
 ./compile sed
 ./compile sort
 ./compile tail
@@ -26,5 +27,5 @@ p2gcc lerner.c rxcog.c -o ../bin/lerner
 ./compile ted
 ./compile touch
 ./compile unix2dos
-./compile vi
+./compile1 vi
 ./compile wc

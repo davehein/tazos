@@ -142,6 +142,7 @@ int main(int argc, char **argv)
 #ifdef __P2GCC__
     sd_mount(58, 61, 59, 60);
     chdir(argv[argc]);
+    start_rx_cog();
 #endif
 
     srchstr[0] = 0;
@@ -217,7 +218,10 @@ int main(int argc, char **argv)
         }
     }
     free(strbuf);
-    exit(0);
+#ifdef __P2GCC__
+    stop_rx_cog();
+#endif
+    return 0;
 }
 
 // Allocate a string link and copy contents of "str"

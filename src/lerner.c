@@ -1723,6 +1723,9 @@ int CheckCommand(char **tokens, int num, char *buffer)
             }
         }
         printf("< Goodbye\n");
+#ifdef __P2GCC__
+        stop_rx_cog();
+#endif
         exit(0);
     }
     else if (strcmp(tokens[0], "vocab") == 0)
@@ -1869,6 +1872,9 @@ int main( int argc, char **argv)
         // Process the user input
         Process(tokens, num, question);
     }
+#ifdef __P2GCC__
+    stop_rx_cog();
+#endif
     return 0;
 }
 /*

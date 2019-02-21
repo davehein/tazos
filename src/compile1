@@ -1,0 +1,2 @@
+echo $1
+p2gcc $1.c rxcog.c -o ../bin/$1
